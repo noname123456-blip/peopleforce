@@ -55,13 +55,13 @@ export function SurveyTemplateDialog({
 
     let success = false;
     if (template) {
-      success = await update(template._id, formData, {
-        successMessage: "Survey Template updated successfully",
-      });
+      success = !!(await update(template._id, formData, {
+        successMessage: "Template updated successfully",
+      }));
     } else {
-      success = await create(formData, {
-        successMessage: "Survey Template created",
-      });
+      success = !!(await create(formData, {
+        successMessage: "Template created successfully",
+      }));
     }
 
     if (success) {

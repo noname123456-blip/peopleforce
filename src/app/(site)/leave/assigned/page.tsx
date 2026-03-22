@@ -20,7 +20,6 @@ import { useList } from "@/hooks/use-list";
 import { useDelete } from "@/hooks/use-delete";
 import { PageLoader } from "@/components/ui/loader";
 import { AssignLeaveDialog } from "@/components/leave/AssignLeaveDialog";
-import { useState } from "react";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 
 function getInitials(name: string) {

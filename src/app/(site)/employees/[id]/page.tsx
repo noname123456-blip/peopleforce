@@ -1,3 +1,4 @@
+"use client";
 // No changes needed here if already viewable, but let's check the profile page
 
 import { useEffect, useState } from "react";

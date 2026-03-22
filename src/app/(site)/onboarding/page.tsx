@@ -86,8 +86,8 @@ export default function OnboardingPage() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center p-20">
-          <Loader variant="dots" />
+        <div className="flex justify-center p-20 py-40">
+          <Loader size="lg" />
         </div>
       ) : (
         <>

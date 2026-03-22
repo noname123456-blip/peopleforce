@@ -22,8 +22,8 @@ export default function EditJobPage() {
 
   if (loading)
     return (
-      <div className="flex justify-center p-20">
-        <Loader variant="dots" />
+      <div className="flex h-64 items-center justify-center">
+        <Loader size="lg" />
       </div>
     );
   if (!data) return <div className="p-10 text-center">Job not found</div>;

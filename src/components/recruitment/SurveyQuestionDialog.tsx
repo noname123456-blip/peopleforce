@@ -50,9 +50,9 @@ export function SurveyQuestionDialog({
       questions: [...existingQuestions, formData],
     };
 
-    const success = await update(templateId, payload, {
+    const success = !!(await update(templateId, payload, {
       successMessage: "Question added successfully",
-    });
+    }));
 
     if (success) {
       setFormData({ text: "", type: "text" }); // Reset

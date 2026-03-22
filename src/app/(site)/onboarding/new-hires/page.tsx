@@ -77,7 +77,7 @@ export default function NewHiresPage() {
 
       {loading ? (
         <div className="flex justify-center p-20">
-          <Loader variant="dots" />
+          <Loader size="md" />
         </div>
       ) : recentHires.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-muted-foreground border-2 border-dashed rounded-lg">

@@ -67,7 +67,7 @@ export default function OnboardingStagesPage() {
 
       {loading ? (
         <div className="flex justify-center p-20">
-          <Loader variant="dots" />
+          <Loader size="md" />
         </div>
       ) : (
         <>

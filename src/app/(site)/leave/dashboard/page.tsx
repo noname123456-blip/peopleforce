@@ -1,3 +1,4 @@
+"use client";
 import { useList } from "@/hooks/use-list";
 import { PageLoader } from "@/components/ui/loader";
 import { formatDate } from "@/utils/formatters";
@@ -19,7 +20,7 @@ import {
 } from "recharts"; // Assuming these are available
 import { Button } from "@/components/ui/button"; // Assuming this is available
 import { Badge } from "@/components/ui/badge"; // Assuming this is available
-import { useRouter } from "next/router"; // Assuming this is available
+import { useRouter } from "next/navigation"; // Corrected from next/router
 
 const monthlyLeaves = [
   { month: "Sep", count: 15 },

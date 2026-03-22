@@ -88,13 +88,13 @@ export function StageDialog({
 
     let success = false;
     if (stage) {
-      success = await update(stage._id, formData, {
+      success = !!(await update(stage._id, formData, {
         successMessage: "Stage updated successfully",
-      });
+      }));
     } else {
-      success = await create(formData, {
+      success = !!(await create(formData, {
         successMessage: "Stage created successfully",
-      });
+      }));
     }
 
     if (success) {

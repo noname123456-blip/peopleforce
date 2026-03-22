@@ -216,22 +216,22 @@ export function OrgChartBuilder() {
 
     let success = false;
     if (editingNode) {
-      success = await update(
+      success = !!(await update(
         editingNode._id,
         {
           ...formData,
           parent_id: selectedParent,
         },
         { successMessage: "Node updated" },
-      );
+      ));
     } else {
-      success = await create(
+      success = !!(await create(
         {
           ...formData,
           parent_id: selectedParent,
         },
         { successMessage: "Node added to Org Chart" },
-      );
+      ));
     }
 
     if (success) {

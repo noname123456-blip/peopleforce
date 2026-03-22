@@ -76,13 +76,13 @@ export function PolicyDialog({
 
     let success = false;
     if (policy) {
-      success = await update(policy._id, formData, {
+      success = !!(await update(policy._id, formData, {
         successMessage: "Policy updated successfully",
-      });
+      }));
     } else {
-      success = await create(formData, {
+      success = !!(await create(formData, {
         successMessage: "Policy created successfully",
-      });
+      }));
     }
 
     if (success) {

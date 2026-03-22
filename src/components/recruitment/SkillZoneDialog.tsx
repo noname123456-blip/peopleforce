@@ -75,13 +75,13 @@ export function SkillZoneDialog({
 
     let success = false;
     if (skillZone) {
-      success = await update(skillZone._id, payload, {
+      success = !!(await update(skillZone._id, payload, {
         successMessage: "Skill Zone updated successfully",
-      });
+      }));
     } else {
-      success = await create(payload, {
+      success = !!(await create(payload, {
         successMessage: "Skill Zone created",
-      });
+      }));
     }
 
     if (success) {

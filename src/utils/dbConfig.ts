@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import "@/models"; // Make sure all models are registered
+
 
 const URI = `${process.env.DB_URI}`;
 

@@ -31,7 +31,9 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const hashPassword = await bcrypt.hash(password, 12)
+        console.log("Email: ", email)
+        console.log("Password: ", password)
+
         const user = await User.findOne({ email: email })
 
         if (!user || !user.isVerified) {
@@ -50,7 +52,12 @@ export async function POST(req: NextRequest) {
         }
 
         const token = jwt.sign(
-            { id: user._id, email: user.email, username: user.username },
+            {
+                id: user._id,
+                email: user.email,
+                username: user.username,
+                role: user.role || "EMPLOYEE",
+            },
             process.env.JWT_SECRET || "shaiman",
             { expiresIn: "24h" }
         );

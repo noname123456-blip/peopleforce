@@ -1,20 +1,37 @@
 import mongoose from "mongoose";
-import "@/models"; // Make sure all models are registered
+import "@/models"; 
 
+const URI = process.env.DB_URI || "";
 
-const URI = `${process.env.DB_URI}`;
+let cached = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null };
+}
 
 export default async function connectDB() {
-    try {
+  if (cached.conn) {
+    return cached.conn;
+  }
 
-        if (mongoose.connections[0].readyState) {
-            return;
-        }
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false, // Avoid buffering if connection fails
+    };
 
-        await mongoose.connect(URI).then(() => {
-            console.log("DB connected successfully!")
-        })
-    } catch (err) {
-        console.log("Error in connection DB: ", err);
-    }
+    cached.promise = mongoose.connect(URI, opts).then((mongoose) => {
+      console.log("DB connected successfully!");
+      return mongoose;
+    });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    console.error("Error in connection DB: ", e);
+    throw e;
+  }
+
+  return cached.conn;
 }

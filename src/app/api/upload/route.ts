@@ -1,3 +1,4 @@
+import connectDB from "@/utils/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 import { uploadToCloudinary } from "@/utils/cloudinary";
 

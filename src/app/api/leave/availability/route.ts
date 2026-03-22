@@ -5,9 +5,10 @@ import AvailableLeave from "@/models/AvailableLeave";
 import Employee from "@/models/Employee";
 import LeaveRequest from "@/models/LeaveRequest";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
     try {
         const payload = await getDataFromToken(req);
         const emp = await Employee.findOne({ employee_user_id: payload.id }).lean();

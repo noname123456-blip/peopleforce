@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/utils/dbConfig";
 import Department from "@/models/Department";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try {
     const list = await Department.find({}).sort({ department: 1 }).lean();
     return NextResponse.json({ data: list });
@@ -14,6 +15,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   try {
     const body = await req.json();
     const dept = await Department.create(body);

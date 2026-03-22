@@ -3,9 +3,10 @@ import connectDB from "@/utils/dbConfig";
 import getDataFromToken from "@/utils/getDataFromToken";
 import AssetCategory from "@/models/AssetCategory";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
     const categories = await AssetCategory.find().sort({ createdAt: -1 }).lean();
@@ -14,6 +15,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
     const body = await req.json();

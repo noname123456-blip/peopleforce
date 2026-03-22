@@ -3,12 +3,10 @@ import connectDB from "@/utils/dbConfig";
 import getDataFromToken from "@/utils/getDataFromToken";
 import SurveyTemplate from "@/models/SurveyTemplate";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(req: NextRequest) {
+    await connectDB();
   try {
     await getDataFromToken(req);
   } catch {
@@ -28,10 +26,8 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(req: NextRequest) {
+    await connectDB();
   try {
     await getDataFromToken(req);
   } catch {
@@ -52,10 +48,8 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(req: NextRequest) {
+    await connectDB();
   try {
     await getDataFromToken(req);
   } catch {

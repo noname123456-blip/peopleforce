@@ -5,9 +5,10 @@ import { canManageLeave } from "@/lib/rbac";
 import LeaveRequest from "@/models/LeaveRequest";
 import Employee from "@/models/Employee";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     const role = (payload.role || "EMPLOYEE") as
@@ -62,6 +63,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     const body = await req.json();

@@ -9,9 +9,10 @@ import EmployeeWorkInformation from "@/models/EmployeeWorkInformation";
 import Department from "@/models/Department";
 import Candidate from "@/models/Candidate";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try {
     await getDataFromToken(req);
   } catch {

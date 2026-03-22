@@ -3,9 +3,10 @@ import connectDB from "@/utils/dbConfig";
 import getDataFromToken from "@/utils/getDataFromToken";
 import Payslip from "@/models/Payslip";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
     const payslips = await Payslip.find()
@@ -18,6 +19,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
     const body = await req.json();

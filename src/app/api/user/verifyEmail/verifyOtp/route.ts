@@ -3,9 +3,11 @@ import connectDB from "@/utils/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
-connectDB();
+
+
 
 export async function POST(req: NextRequest) {
+  await connectDB();
   try {
     const body = await req.json();
     const { otp, id } = body;

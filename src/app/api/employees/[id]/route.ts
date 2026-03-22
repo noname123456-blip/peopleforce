@@ -5,12 +5,10 @@ import { canManageEmployees } from "@/lib/rbac";
 import Employee from "@/models/Employee";
 import EmployeeWorkInformation from "@/models/EmployeeWorkInformation";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(req: NextRequest) {
+    await connectDB();
   let payload: { role?: string; id?: string };
   try {
     payload = await getDataFromToken(req);
@@ -42,10 +40,8 @@ export async function GET(
   return NextResponse.json(employee);
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(req: NextRequest) {
+    await connectDB();
   let payload: { role?: string };
   try {
     payload = await getDataFromToken(req);
@@ -134,10 +130,8 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(req: NextRequest) {
+    await connectDB();
   let payload: { role?: string };
   try {
     payload = await getDataFromToken(req);

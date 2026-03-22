@@ -6,9 +6,10 @@ import { canManageEmployees } from "@/lib/rbac";
 import Employee from "@/models/Employee";
 import EmployeeWorkInformation from "@/models/EmployeeWorkInformation";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   let payload: { role?: string };
   try {
     payload = await getDataFromToken(req);
@@ -95,6 +96,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   let payload: { role?: string };
   try {
     payload = await getDataFromToken(req);

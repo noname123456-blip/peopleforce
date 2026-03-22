@@ -4,12 +4,10 @@ import getDataFromToken from "@/utils/getDataFromToken";
 import { canManageLeave } from "@/lib/rbac";
 import LeaveRequest from "@/models/LeaveRequest";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(req: NextRequest) {
+    await connectDB();
   try {
     const { id } = await params;
     const payload = await getDataFromToken(req);

@@ -4,9 +4,10 @@ import getDataFromToken from "@/utils/getDataFromToken";
 import OnboardingTask from "@/models/OnboardingTask";
 import { canManageOnboarding } from "@/lib/rbac";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     if (!canManageOnboarding(payload.role as any)) {
@@ -44,6 +45,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     if (!canManageOnboarding(payload.role as any)) {

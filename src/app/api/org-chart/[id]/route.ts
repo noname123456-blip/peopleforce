@@ -4,9 +4,10 @@ import getDataFromToken from "@/utils/getDataFromToken";
 import OrgChart from "@/models/OrgChart";
 import { canManageEmployees } from "@/lib/rbac";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
-export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function PUT(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     const role = (payload.role || "EMPLOYEE") as any;
@@ -28,7 +29,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     const role = (payload.role || "EMPLOYEE") as any;

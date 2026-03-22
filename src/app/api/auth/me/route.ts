@@ -3,9 +3,10 @@ import getDataFromToken from "@/utils/getDataFromToken";
 import User from "@/models/User";
 import connectDB from "@/utils/dbConfig";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     const user = await User.findById(payload.id).select(

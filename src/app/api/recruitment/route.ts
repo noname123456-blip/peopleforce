@@ -4,9 +4,10 @@ import getDataFromToken from "@/utils/getDataFromToken";
 import Recruitment from "@/models/Recruitment";
 import { canManageRecruitment } from "@/lib/rbac";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     const role = (payload.role || "EMPLOYEE") as any;
@@ -40,6 +41,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   try {
     const payload = await getDataFromToken(req);
     // Add RBAC check if needed: if (!canManageRecruitment(payload.role)) ...

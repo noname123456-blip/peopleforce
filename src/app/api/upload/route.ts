@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { uploadToCloudinary } from "@/utils/cloudinary";
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File;

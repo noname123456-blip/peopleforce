@@ -3,9 +3,10 @@ import connectDB from "@/utils/dbConfig";
 import getDataFromToken from "@/utils/getDataFromToken";
 import Ticket from "@/models/Ticket";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
-export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(req: NextRequest) {
+    await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
     const { id } = await params;
@@ -17,7 +18,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   } catch { return NextResponse.json({ error: "Failed to fetch ticket" }, { status: 500 }); }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function PUT(req: NextRequest) {
+    await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
     const { id } = await params;
@@ -28,7 +30,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   } catch { return NextResponse.json({ error: "Failed to update ticket" }, { status: 500 }); }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(req: NextRequest) {
+    await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
     const { id } = await params;

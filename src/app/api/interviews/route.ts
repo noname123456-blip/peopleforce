@@ -3,9 +3,10 @@ import connectDB from "@/utils/dbConfig";
 import getDataFromToken from "@/utils/getDataFromToken";
 import InterviewSchedule from "@/models/InterviewSchedule";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
   try {
     await getDataFromToken(req);
   } catch {
@@ -26,6 +27,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
   try {
     await getDataFromToken(req);
   } catch {

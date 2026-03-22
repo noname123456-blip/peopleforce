@@ -3,9 +3,10 @@ import connectDB from "@/utils/dbConfig";
 import getDataFromToken from "@/utils/getDataFromToken";
 import CompanyLeave from "@/models/CompanyLeave";
 
-connectDB();
+// Fixed: moved connectDB to handlers
 
 export async function GET(req: NextRequest) {
+    await connectDB();
     try {
         await getDataFromToken(req);
         const list = await CompanyLeave.find({}).sort({ based_on_week: 1, based_on_week_day: 1 }).lean();
@@ -19,6 +20,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
     try {
         await getDataFromToken(req);
         const body = await req.json();

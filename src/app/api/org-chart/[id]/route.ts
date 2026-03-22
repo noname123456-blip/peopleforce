@@ -6,7 +6,7 @@ import { canManageEmployees } from "@/lib/rbac";
 
 // Fixed: moved connectDB to handlers
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest, { params }: any) {
     await connectDB();
   try {
     const payload = await getDataFromToken(req);
@@ -29,7 +29,7 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest, { params }: any) {
     await connectDB();
   try {
     const payload = await getDataFromToken(req);

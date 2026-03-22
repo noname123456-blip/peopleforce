@@ -5,7 +5,7 @@ import Asset from "@/models/Asset";
 
 // Fixed: moved connectDB to handlers
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params }: any) {
     await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
   } catch { return NextResponse.json({ error: "Failed to fetch asset" }, { status: 500 }); }
 }
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest, { params }: any) {
     await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {
@@ -28,7 +28,7 @@ export async function PUT(req: NextRequest) {
   } catch { return NextResponse.json({ error: "Failed to update asset" }, { status: 500 }); }
 }
 
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest, { params }: any) {
     await connectDB();
   try { await getDataFromToken(req); } catch { return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); }
   try {

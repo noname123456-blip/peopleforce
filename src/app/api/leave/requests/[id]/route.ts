@@ -6,7 +6,7 @@ import LeaveRequest from "@/models/LeaveRequest";
 
 // Fixed: moved connectDB to handlers
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest, { params }: any) {
     await connectDB();
   try {
     const { id } = await params;

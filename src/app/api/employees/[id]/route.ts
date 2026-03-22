@@ -7,7 +7,7 @@ import EmployeeWorkInformation from "@/models/EmployeeWorkInformation";
 
 // Fixed: moved connectDB to handlers
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params }: any) {
     await connectDB();
   let payload: { role?: string; id?: string };
   try {
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(employee);
 }
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest, { params }: any) {
     await connectDB();
   let payload: { role?: string };
   try {
@@ -130,7 +130,7 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest, { params }: any) {
     await connectDB();
   let payload: { role?: string };
   try {

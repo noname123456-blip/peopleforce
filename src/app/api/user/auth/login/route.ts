@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "@/models/User";
 
 
-connectDB();
+
 
 function isValidEmail(email: string) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,6 +13,7 @@ function isValidEmail(email: string) {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
     try {
         const body = await req.json()
         const { email, password } = body;

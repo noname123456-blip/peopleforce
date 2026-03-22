@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import User from "@/models/User";
 import SendEmail from "@/utils/SendEmail";
 
-connectDB();
+
 
 function isValidEmail(email: string) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -16,6 +16,7 @@ function generateOTP() {
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
     try {
         const body = await req.json();
         const { username, email, password } = body;

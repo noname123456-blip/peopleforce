@@ -111,32 +111,27 @@ const SendEmail = async ({
         // Looking to send emails in production? Check out our Email API/SMTP product!
         //For production replace all this with the google OAuth 2,0 provider
         const transport = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
+            host: process.env.SMTP_HOST || "sandbox.smtp.mailtrap.io",
+            port: Number(process.env.SMTP_PORT) || 587,
             auth: {
-                user: "61ad75a28b5c59",
-                pass: "5456571c9d9317"
+                user: process.env.SMTP_USER || "61ad75a28b5c59",
+                pass: process.env.SMTP_PASS || "5456571c9d9317"
             }
         });
 
         const EmailOptions = {
-            from: '"TEST" <test@test.email>',
+            from: process.env.SMTP_FROM || '"Horrila" <no-reply@horrila.com>',
             to: email,
             subject: emailType == "Verify" ? "Verify Your Account" : "Reset Your Password",
             html: EmailHTML,
         }
 
-        const isEmailSent = await transport.sendMail(EmailOptions);
-
-        if (!isEmailSent) {
-            console.log("Email is failed to sent!");
-            return false;
-        }
-
-        return true;
+        const info = await transport.sendMail(EmailOptions);
+        return !!info.messageId;
 
     } catch (err) {
-        console.log("Error in sending email: ", err)
+        console.error("Error in sending email: ", err);
+        return false;
     }
 }
 

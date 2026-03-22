@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
 
             await existingUser.save();
 
-            const isEmailSent = SendEmail({ username: existingUser.username, email: existingUser.email, emailType: "Verify", otp: otp, id: existingUser._id });
+            const isEmailSent = await SendEmail({ username: existingUser.username, email: existingUser.email, emailType: "Verify", otp: otp, id: existingUser._id });
 
             if (!isEmailSent) {
                 return NextResponse.json(
@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
             verifyOTPExpiry: otpExpiry,
         });
 
-        const isEmailSent = SendEmail({ username: user.username, email: user.email, emailType: "Verify", otp: otp, id: user._id });
+        const isEmailSent = await SendEmail({ username: user.username, email: user.email, emailType: "Verify", otp: otp, id: user._id });
 
         if (!isEmailSent) {
             return NextResponse.json(

@@ -3,13 +3,15 @@ import connectDB from "@/utils/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 import SendEmail from "@/utils/SendEmail";
 
-connectDB();
+
+
 
 function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
 export async function POST(req: NextRequest) {
+    await connectDB();
     try {
         const body = await req.json();
         const { id } = body;
@@ -54,7 +56,7 @@ export async function POST(req: NextRequest) {
         user.verifyOTPCreatedAt = new Date();
         await user.save();
 
-        const isEmailSent = SendEmail({ username: user.username, email: user.email, emailType: "Verify", otp: otp, id: user._id });
+        const isEmailSent = await SendEmail({ username: user.username, email: user.email, emailType: "Verify", otp: otp, id: user._id });
 
         if (!isEmailSent) {
             return NextResponse.json(
